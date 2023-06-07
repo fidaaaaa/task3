@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <section id="customer">
+        <section class="wrapper">
+            <a href="{% url 'web:index' %}"><h1 class="heading">{{instances.full_name}}</h1></a>
+            <!-- <div class="buttons">
+                <a href="#" class="button">Add Events</a>
+            </div> -->
+            <div class="flex">
+                <div class="left">
+                    <ul class="column">
+                        <li class="column">
+                            <ul class="row">
+                                <li>Days/food</li>
+                                <li>Breakfast</li>
+                                <li>Lunch</li>
+                                <li>Tea</li>
+                                <li>Dinner</li>
+                            </ul>
+                        </li>
+                        {% for day in days %}
+                            <li class="column">
+                                <ul class="row">
+                                    <li>{{day.name}} <a href="{% url 'food:add_food' pk=day.id %}">Order</a></li>
+                                        
+                                        {% for food in foods %}
+
+                                            {% if food.days == day.name %}
+
+                                                <li class="column">{{food.breakfast}}</li>
+                                                <li class="column">{{food.lunch}}</li>
+                                                <li class="column">{{food.tea}}</li>
+                                                <li class="column">{{food.dinner}}</li>
+
+                                            {% endif %}
+                                        
+                                        {% endfor %}
+                                </ul>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="right">
+                    <div class="details">
+                        <h3 class="title">DETAILS</h3>
+                        <h5>{{instances.full_name}}</h5>
+                        <h5>{{instances.phone}}</h5>
+                        <h5>Email : {{instances.email}}</h5>
+                    </div>
+                   
+                </div>  
+            </div>
+            
+        </section>
+    </section>
+  
+</body>
+</html>

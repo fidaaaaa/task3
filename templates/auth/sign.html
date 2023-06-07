@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {%load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+</head>
+  <body>
+      <body>
+			<div class="signup-form">
+				<h1>Sign Up</h1>
+				<form action="" method="post">
+					{% csrf_token %}
+					<label for="name">Full Name : </label>
+					<input type="text" placeholder="Full Name" id="name" name="full_name" required />
+					<label for="name">Phone Number : </label>
+					<input type="text" placeholder="Phone Number" id="phone" name="phone" required />
+					<label for="email">Email Address : </label>
+					<input type="email" placeholder="Email" id="email" name="email" />
+					<label for="password">Password : </label>
+					<input type="password" placeholder="Password" id="password" name="password" required />
+					<input type="submit" value="Sign Up">
+				</form>
+			</div>
+        </body>
+  </body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <section id="main">
+        <section class="wrapper">
+            <div class="top">
+                <a href=""><h1>Food </h1></a>
+                <div class="button">
+                    <a href="{% url 'users:login' %}" class="button">LOG IN</a>
+                    <a href="{% url 'users:sign' %}" class="button">SIGN UP</a>
+                </div>
+            </div>
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Name</th>
+                        <th>email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in students %}
+                    <tr>
+                        <td>{{student.number}}</td>
+                        <td>{{student.full_name}}</td>
+                        <td>{{student.email}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+</section>
+
+
+</body>
+</html>

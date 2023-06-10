@@ -52,4 +52,3 @@ def add_food (request,pk):
 
         }
         return render(request, 'add_food.html',context=context)
-

@@ -4,7 +4,7 @@ class Day(models.Model):
     name=models.CharField(max_length=255)
     food = models.ManyToManyField("food.Food")
 
-    def __str__(self):
+    def _str_(self):
         return self.name
 
 
@@ -17,5 +17,5 @@ class Food(models.Model):
     
     # food_name=models.ForeignKey("food.Day",on_delete=models.CASCADE)
 
-    def __str__(self):
+    def _str_(self):
         return self.days

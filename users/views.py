@@ -1,14 +1,18 @@
-from django.shortcuts import render
-from django.contrib.auth import authenticate, login as auth_login
-from django.http import HttpResponseRedirect
+from django.shortcuts import render ,reverse
+
+from django.contrib.auth import authenticate , login as auth_login, logout as auth_logout
+from django.http.response import HttpResponseRedirect
 from django.contrib.auth.models import User
 
 from users.forms import UserForm
 from users.models import Student
 
+# Create your views here.
+
 def sign(request):
     if request.method == "POST":
         form = UserForm(request.POST)
+        
 
         if form.is_valid():
             instance = form.save(commit=False)
@@ -17,7 +21,7 @@ def sign(request):
                 password=instance.password,
             )
 
-            student = Student.objects.create(
+            student=Student.objects.create(
                 number=user.id,
                 full_name=user.username,
                 phone=instance.phone,
@@ -26,36 +30,43 @@ def sign(request):
             )
 
             user = authenticate(request, username=instance.full_name, password=instance.password)
-            auth_login(request, user)
-            url = f'/{student.number}'
+            auth_login(request,user)
+            url=f'/{student.number}'
             return HttpResponseRedirect(url)
 
-    else:
-        form = UserForm()
+    form = UserForm()
+    context={
+        "title":"Sign Up",
+        "form" : form,
+        
 
-    context = {
-        "title": "Sign Up",
-        "form": form,
     }
-
-    return render(request, 'auth/sign.html', context=context)
+    
+    return render(request, 'auth/sign.html',context=context)
 
 
 def login(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         username = request.POST.get('username')
         password = request.POST.get('password')
 
         if username and password:
             user = authenticate(request, username=username, password=password)
+            
             if user is not None:
-                auth_login(request, user)
+                auth_login(request,user)
+                url=f'/{user.pk}'
+                return HttpResponseRedirect(url)
 
-                return HttpResponseRedirect("/")
-            else:
-                context={
-                    "title": "Login",
-                    "error":True,
-                    "message": "Invalid username or password"
-                }
-                return render(request, 'users/login.html', context=context)
+            
+        context = {
+            "title":"Login",
+            "error" : True,
+            "message": "invalid Username or Password"
+        }
+        return render(request,"auth/login.html",context=context) 
+    else:
+        context = {
+            "title":"Login"
+        }
+        return render(request,"auth/login.html",context=context)
